@@ -18,7 +18,3 @@ You can try the live demo at https://markdown-2-pdf.netlify.app/
 ## License
 
 This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
-
-## Contributing
-
-Contributions are welcome! Feel free to open issues or submit pull requests.
