@@ -77,11 +77,8 @@ function App() {
     const previewEl = previewRef.current
     const candidateTitleEl = previewEl?.querySelector("h1")
     
-    let filename = 'markdown-2-pdf-document'
-    
     if (candidateTitleEl) {
       const candidateTitle = candidateTitleEl.textContent || ''
-      filename = candidateTitle.trim().toLowerCase().replace(/\s+/g, '-')
       const currentTitle = document.title
       document.title = candidateTitle
       
