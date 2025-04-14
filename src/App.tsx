@@ -36,7 +36,7 @@ const sanitizeHtml = (html: string): string => {
 };
 
 function App() {
-  const [markdown, setMarkdown] = useState('# Welcome to MD2PDF\n\nThis is a simple **markdown to PDF** converter.\n\n## Features\n\n- Live preview\n- File upload\n- Direct PDF conversion\n- Privacy first - no data stored\n\nStart typing or **upload a file** to begin!')
+  const [markdown, setMarkdown] = useState('# Welcome to markdown-2-pdf\n\nThis is a simple **markdown to PDF** converter.\n\n## Features\n\n- Live preview\n- File upload\n- Direct PDF conversion\n- Privacy first - no data stored\n\nStart typing or **upload a file** to begin!')
   const [htmlOutput, setHtmlOutput] = useState('')
   const fileInputRef = useRef<HTMLInputElement>(null)
   const previewRef = useRef<HTMLDivElement>(null)
@@ -77,8 +77,11 @@ function App() {
     const previewEl = previewRef.current
     const candidateTitleEl = previewEl?.querySelector("h1")
     
+    let filename = 'markdown-2-pdf-document'
+    
     if (candidateTitleEl) {
       const candidateTitle = candidateTitleEl.textContent || ''
+      filename = candidateTitle.trim().toLowerCase().replace(/\s+/g, '-')
       const currentTitle = document.title
       document.title = candidateTitle
       
@@ -89,14 +92,29 @@ function App() {
       })
     }
     
+    // Add print styles
+    const printStyle = document.createElement('style')
+    printStyle.innerHTML = `
+      @media print {
+        @page {
+          size: auto;
+          margin: 20mm 15mm 20mm 15mm;
+        }
+      }
+    `
+    document.head.appendChild(printStyle)
+    
     window.print()
+    
+    // Remove the style after printing
+    document.head.removeChild(printStyle)
   }
 
   return (
     <div className="app-container">
       <header className="no-print">
         <div className="logo-section">
-          <h1>MD2PDF</h1>
+          <h1>markdown-2-pdf</h1>
           <p>Convert Markdown to PDF</p>
         </div>
         <div className="github-star">
@@ -162,7 +180,7 @@ function App() {
       </main>
 
       <footer className="no-print">
-        <p>© {new Date().getFullYear()} MD2PDF</p>
+        <p>© {new Date().getFullYear()} markdown-2-pdf</p>
       </footer>
     </div>
   )
